@@ -4,7 +4,7 @@
   "items": [
     {
       "name": "Gray 100",
-      "value": "#f8f8f8"
+      "value": "#FCEDE3"
     },
     {
       "name": "Gray 200",
@@ -36,31 +36,35 @@
     },
     {
       "name": "Gray 900",
-      "value": "#161616"
+      "value": "#0A0A0A"
+    },
+    {
+      "name": "white",
+      "value": "#FCEDE3"
     },
     {
       "name": "Pink",
-      "value": "#dd4462"
+      "value": "#EC650E"
     },
     {
       "name": "Pink Subdued",
-      "value": "#ce5769"
+      "value": "#F4873E"
     },
     {
       "name": "Blue",
-      "value": "#4467dd"
+      "value": "#21317E"
     },
     {
       "name": "Blue Subdued",
-      "value": "#4d6cc8"
+      "value": "#334BC1"
     },
     {
       "name": "Gold",
-      "value": "#fbbe25"
+      "value": "#93dafe"
     },
     {
       "name": "Gold Subdued",
-      "value": "#f1c15b"
+      "value": "#AEE4FE"
     }
   ]
 }

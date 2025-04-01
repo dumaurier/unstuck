@@ -1,5 +1,7 @@
 .site-footer {
   --cluster-horizontal-alignment: center;
+  background: var(--color-secondary);
+  color: var(--color-bg);
 }
 
 /* increase tab size */
