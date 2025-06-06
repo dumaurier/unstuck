@@ -1,18 +1,24 @@
 <!-- toggle drawer menu in _data/meta.js -->
 {% set drawerNav = meta.navigation.drawerNav %}
 
-<nav id="mainnav" class="mainnav" aria-label="{{ meta.navigation.ariaTop }}">
+<nav id="mainnav" class="mainnav unstuck_nav" aria-label="mainmenulabel">
+  <h2 id="mainmenulabel" class="visually-hidden">{{ meta.navigation.navLabel }}</h2>
+  <a href="#main" class="skip-link">{{ meta.skipContent }}</a>
+  {% svg "misc/unstuck", "unstuck logo", "unstuck_logo" %}
   <ul class="cluster" role="list" no-flash>
     {% for item in navigation.top %}
-      <li>
+      <li {{
+        helpers.getLinkActiveState(item.url,
+        page.url)
+        |
+        safe
+      }}>
         <a
           href="{{ item.url }}"
-          {{
-            helpers.getLinkActiveState(item.url,
-            page.url)
-            |
-            safe
-          }}
+          data-js-btn="{{ item.button }}"
+          aria-expanded="false"
+          aria-controls="preview-{{ item.button }}"
+          role="button"
           >{{ item.text }}</a
         >
       </li>

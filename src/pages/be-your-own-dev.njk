@@ -1,0 +1,160 @@
+---
+layout: unstuck
+permalink: /byod/index.html
+title: 'Unstuck Digital - Be Your Own Dev'
+description: 'Unstuck'
+intro: "Unstuck Digital is a digital shop for weirdos with ethics, vision and purpose. Unstuck makes websites using tools that are open, ethical and accessible."
+---
+
+{% css "local" %}
+  {% include "css/unstuck.css" %}
+{% endcss %}
+
+{% js "inline" %}
+  {% include "scripts/unstuck.js" %}
+{% endjs %}
+
+
+<nav class="unstuck_nav" aria-labelledby="mainmenulabel">
+  <h2 id="mainmenulabel" class="visually-hidden">Navigation</h2>
+  <a href="#main" class="skip-link">{{ meta.skipContent }}</a>
+    {% svg "misc/unstuck", "unstuck logo", "unstuck_logo" %}
+  <ul>
+    <li>
+      <a href="/" data-js-btn="us_a11y">accessibility & equity</a>
+    </li>
+    <li>
+      <a href="/" data-js-btn="us_strat">ethical digital strategy</a>
+    </li>
+    <li>
+      <a href="/" data-js-btn="us_fedi">digital soviergnty & the fediverse</a>
+    </li>
+    <li>
+      <a href="/" data-js-btn="us_indie">fediverse and indieweb</a>
+    </li>
+    <li>
+      <a href="/" data-js-btn="us_course">be your own dev *course*</a>
+    </li>
+  </ul>
+</nav>
+
+<section class="unstuck_container unstuck_left">
+  <div class="unstuck_content">
+    <h1>{{ title }}</h1>
+    <h3>{{ intro }}</h3>
+  </div>
+</section>
+
+<section class="unstuck_container unstuck_right">
+  <div class="unstuck_content">
+    <p>Let’s face it, your digital presence matters.
+      And, whether you give a sh*t about it to or not, it’s the dividing line 
+      between a site your friends politely visit and a site delivered to the folx you serve.
+      But keeping up with the digital world is tough, especially with limited resources.
+      That’s where we come in! 
+      From assessments to development to a rad new 
+      Oligarch-Free, Fedi-Verse–social 
+      networking in the service of
+      community, we gotchu. </p>
+  </div>  
+</section>
+
+
+<section class="unstuck_area">
+  <article class="unstuck_sidebar unstuck_a11y" data-js="us_a11y">
+    <strong>a11y</strong>
+    <p>
+      Just some words.
+    </p>
+  </article>
+  <article class="unstuck_sidebar unstuck_strat" data-js="us_strat">
+    <strong>ethical digital strategy</strong>
+    <p>
+      Just some words.
+    </p>
+  </article>
+  <article class="unstuck_sidebar unstuck_fedi" data-js="us_fedi">
+    <strong>fediverse</strong>
+    <p>
+      Just some words.
+    </p>
+  </article>
+  <article class="unstuck_sidebar unstuck_indie" data-js="us_indie">
+    <strong>indieweb</strong>
+    <p>
+      Just some words.
+    </p>
+  </article>
+  <article class="unstuck_sidebar unstuck_course" data-js="us_course">
+    <strong>be your own dev</strong>
+    <p>
+      Just some words.
+    </p>
+  </article>
+</section>
+
+
+<section class="unstuck_container_preview unstuck_us_a11y-preview">
+    <div class="dt_a11y-text-content">
+      <h2>Accessibility & Equity</h2>
+    <p>
+      <a href="#a11y">A11y</a> (pronounced "ally") is short for accessibility—making digital spaces usable for everyone. It means designing websites, apps, and tools so people with disabilities (like vision, hearing, or mobility challenges) can navigate, understand, and interact with them. Think screen readers, captions, keyboard-friendly layouts, and clear designs. A11y isn't just compliance; it's about ensuring everyone has equal access to information and opportunities online.
+    </p>
+
+    <p>A11y is essential for non-profits. It ensures that everyone, regardless of their abilities, can access your resources, participate in your events, and connect with your mission. By focusing on accessibility, you're not only broadening your reach but also demonstrating a real commitment to inclusion. It's a practical way to live out your values, deepen your impact, and ensure no one is excluded. A11y isn't just a checkbox—it's about making your work truly welcoming for all.</p>
+
+    <a href="/a11y" class="dt_a11y-btn button">Learn more about A11y</a>
+  </div>
+</section>  
+
+<section class="unstuck_container_preview unstuck_us_strat-preview">
+  <div class="dt_a11y-text-content">
+    <h2>What is an Ethical Digital Strategy</h2>
+  <p>
+    An ethical digital strategy is about building your online presence with purpose. It means being intentional with how you share, connect, and create in digital spaces—guided by your values, not just by trends or algorithms.
+  </p>
+
+  <p>It's about choosing tools and tactics that reflect care—for your community, for your audience, and for the planet. By approaching your website this way, you're not just building something functional or beautiful—you're making something meaningful. Something that reflects who you are, what you stand for, and how you want to show up in the world.</p>
+
+  <p>Ethical strategy doesn't limit your creativity—it makes it deeper, more aligned, and more impactful.</p>
+</div>
+</section>
+
+<section class="unstuck_container_preview unstuck_us_fedi-preview">
+  <div class="dt_a11y-text-content">
+    <h2>Digital Sovereignty & The Fediverse</h2>
+    <p>
+      The fediverse represents a new approach to social networking—one that's decentralized, community-owned, and built on open protocols. Unlike mainstream platforms controlled by corporations, fediverse networks (like Mastodon, PeerTube, and Pixelfed) are interconnected yet independently operated.
+    </p>
+    <p>
+      This means greater digital sovereignty: the ability to control your online presence, data, and connections without being subject to algorithmic manipulation or surveillance capitalism. For organizations and communities, the fediverse offers a way to engage authentically, build genuine connections, and align your digital presence with your values.
+    </p>
+    <a href="/fediverse" class="dt_a11y-btn button">Explore the Fediverse</a>
+  </div>
+</section>
+
+<section class="unstuck_container_preview unstuck_us_indie-preview">
+  <div class="dt_a11y-text-content">
+    <h2>Fediverse and IndieWeb</h2>
+    <p>
+      The IndieWeb movement champions web ownership—creating and maintaining your own website as your primary online identity. It's about taking back control from platforms that monetize your content and attention.
+    </p>
+    <p>
+      By combining IndieWeb principles with fediverse connections, you can create a powerful, independent digital presence that still enables social interaction. Your content lives on your own domain, but can be shared and discussed across the decentralized social web. This approach gives you the best of both worlds: ownership and community.
+    </p>
+    <a href="/indieweb" class="dt_a11y-btn button">Discover IndieWeb</a>
+  </div>
+</section>
+
+<section class="unstuck_container_preview unstuck_us_course-preview">
+  <div class="dt_a11y-text-content">
+    <h2>Be Your Own Dev Course</h2>
+    <p>
+      Our "Be Your Own Dev" course empowers non-technical people to take control of their digital presence. You don't need to become a full-time developer—you just need enough knowledge to make informed decisions and handle basic updates yourself.
+    </p>
+    <p>
+      Through practical, hands-on learning, you'll gain confidence in managing your website, understanding technical concepts, and communicating effectively with developers when you do need help. The course focuses on sustainable skills that will serve you long-term, not just quick fixes.
+    </p>
+    <a href="/course" class="dt_a11y-btn button">Join the Course</a>
+  </div>
+</section>

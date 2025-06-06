@@ -52,7 +52,7 @@ export const blog = {
   paginationPage: 'Page',
   paginationPrevious: 'Previous',
   paginationNext: 'Next',
-  paginationNumbers: true
+  paginationNumbers: false
 };
 export const details = {
   aria: 'section controls',

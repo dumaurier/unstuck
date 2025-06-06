@@ -1,41 +1,20 @@
 ---
-layout: base
+layout: unstuck
 permalink: /index.html
-title: 'Unstuck'
+title: 'Unstuck Digital'
 description: 'Unstuck'
-blog:
-  title: 'Unstuck'
-  intro: "Unstuck"
+intro: "Unstuck Digital is a digital shop for weirdos with ethics, vision and purpose. Unstuck makes websites using tools that are open, ethical and accessible."
 ---
 
-<div class="wrapper">
-  <header class="full | section" style="--spot-color: var(--color-primary)">
-    <div class="section__inner flow region">
-      <h1 class="text-center" style="color: var(--color-light);">{{ title }}</h1>
-    </div>
-  </header>
+{% css "local" %}
+  {% include "css/unstuck.css" %}
+{% endcss %}
 
-  <article class="full | region">
-    <div class="wrapper flow prose">
-      <h2 id="an-eleventy-starter">Unstuck</h2>
-    </div>
-  </article>
+{% js "inline" %}
+  {% include "scripts/unstuck.js" %}
+{% endjs %}
 
-  {# <section class="full | region">
-    <div class="wrapper flow prose">
-      <h2>{{ blog.title }}</h2>
-      {% if blog.intro %}
-        <p>{{ blog.intro }}</p>
-      {% endif %}
-      <div class="feature |  region region-space-l">
-        <custom-masonry layout="50-50">
-          {% set itemList = collections.allPosts %}
-					{% asyncEach item in itemList.slice(0, 4) %}
-            {% set headingLevel = "h3" %}
-						{% include "partials/card-blog.njk" %}
-					{% endeach %}
-        </custom-masonry>
-      </div>
-    </div>
-  </section> #}
-</div>
+
+
+
+

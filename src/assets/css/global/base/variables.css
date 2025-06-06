@@ -34,11 +34,14 @@
 :root,
 :root[data-theme='light'] {
   --color-text: var(--color-gray-800);
-  --color-bg: var(--color-gray-100);
+  --color-bg: var(--color-white);
 
-  --color-primary: var(--color-pink);
-  --color-secondary: var(--color-blue);
-  --color-tertiary: var(--color-gold);
+  --color-primary: var(--color-amethyst);
+  --color-secondary: var(--color-brilliant-rose);
+  --color-tertiary: var(--color-deep-sky-blue);
+  --color-primary-alt: var(--color-blue-violet);
+  --color-secondary-alt: var(--color-maize);
+  --color-tertiary-alt: var(--color-aqua-marine);
 
   --color-text-accent: var(--color-gray-700);
   --color-bg-accent: var(--color-gray-200);
@@ -49,11 +52,11 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --color-text: var(--color-gray-100);
-    --color-bg: var(--color-gray-800);
+    --color-bg: var(--color-primary);
 
-    --color-primary: var(--color-pink-subdued);
-    --color-secondary: var(--color-blue-subdued);
-    --color-tertiary: var(--color-gold-subdued);
+    --color-primary: var(--color-secondary);
+    --color-secondary: var(--color-secondary-alt);
+    --color-tertiary: var(--color-tertiary-alt);
 
     --color-text-accent: var(--color-gray-300);
     --color-bg-accent: var(--color-gray-700);
@@ -62,13 +65,13 @@
 }
 :root[data-theme='dark'] {
   --color-text: var(--color-gray-100);
-  --color-bg: var(--color-gray-800);
+    --color-bg: var(--color-primary);
 
-  --color-primary: var(--color-pink-subdued);
-  --color-secondary: var(--color-blue-subdued);
-  --color-tertiary: var(--color-gold-subdued);
+    --color-primary: var(--color-secondary);
+    --color-secondary: var(--color-secondary-alt);
+    --color-tertiary: var(--color-tertiary-alt);
 
-  --color-text-accent: var(--color-gray-300);
-  --color-bg-accent: var(--color-gray-700);
-  --color-bg-accent-2: var(--color-gray-600);
+    --color-text-accent: var(--color-gray-300);
+    --color-bg-accent: var(--color-gray-700);
+    --color-bg-accent-2: var(--color-gray-600);
 }
