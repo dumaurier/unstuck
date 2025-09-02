@@ -11,20 +11,20 @@ export default {
       button: 'us_strat'
     },
     {
-      text: 'digital sovereignty',
-      url: '/digital-sovereignty/',
+      text: 'clean web development',
+      url: '/clean-web-development/',
+      button: 'us_clean'
+    },
+    {
+      text: 'green web hosting',
+      url: '/green-web-hosting/',
+      button: 'us_green'
+    },
+    {
+      text: 'fediverse & open-source',
+      url: '/fediverse-open-source/',
       button: 'us_fedi'
     },
-    {
-      text: 'fediverse and indieweb',
-      url: '/fediverse/',
-      button: 'us_indie'
-    },
-    {
-      text: 'be your own dev',
-      url: '/byod/',
-      button: 'us_course'
-    }
   ],
   bottom: [
 

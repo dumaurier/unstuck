@@ -43,6 +43,27 @@ function applyRandomSkew(selector, minSkew, maxSkew) {
 // Function to show a specific preview section (full visibility) - consistent for all pages
 const showPreview = (previewSection) => {
   if (previewSection) {
+    // Check if we're on a sub-page and this is the current page's preview
+    const isSubPage = document.body.classList.contains('unstuck_fullpage');
+    if (isSubPage) {
+      // Get the current page's key from body classes
+      const bodyClasses = Array.from(document.body.classList);
+      const currentPageKey = bodyClasses.find(cls => cls.startsWith('us_'));
+      
+      // Get this preview's key - handle format like "unstuck_us_a11y-preview"
+      const sectionClass = previewSection.className.split(' ')[1];
+      if (sectionClass && currentPageKey) {
+        // Extract the key part - it should be between "unstuck_" and "-preview"
+        const previewKey = sectionClass.replace('unstuck_', '').replace('-preview', '');
+        
+        // Don't show the preview if it matches the current page
+        if (currentPageKey === previewKey) {
+          console.log(`Blocking current page preview: ${currentPageKey} === ${previewKey}`);
+          return; // Exit early, don't show this preview
+        }
+      }
+    }
+    
     previewSection.classList.remove("peek");
     previewSection.classList.add("active");
     previewSection.style.opacity = '1';
@@ -74,6 +95,27 @@ const showPreview = (previewSection) => {
 // Function to peek at a preview section (partial visibility)
 const peekPreview = (previewSection) => {
   if (previewSection) {
+    // Check if we're on a sub-page and this is the current page's preview
+    const isSubPage = document.body.classList.contains('unstuck_fullpage');
+    if (isSubPage) {
+      // Get the current page's key from body classes
+      const bodyClasses = Array.from(document.body.classList);
+      const currentPageKey = bodyClasses.find(cls => cls.startsWith('us_'));
+      
+      // Get this preview's key - handle format like "unstuck_us_a11y-preview"
+      const sectionClass = previewSection.className.split(' ')[1];
+      if (sectionClass && currentPageKey) {
+        // Extract the key part - it should be between "unstuck_" and "-preview"
+        const previewKey = sectionClass.replace('unstuck_', '').replace('-preview', '');
+        
+        // Don't show the preview if it matches the current page
+        if (currentPageKey === previewKey) {
+          console.log(`Blocking current page preview: ${currentPageKey} === ${previewKey}`);
+          return; // Exit early, don't show this preview
+        }
+      }
+    }
+    
     previewSection.classList.add("peek");
     previewSection.style.opacity = '1';
     previewSection.style.zIndex = '20'; // Higher z-index to ensure visibility on all pages
@@ -134,7 +176,7 @@ const peekUI = (targetElement) => {
       curtainL.classList.add("active");
     };
     
-// Function to deactivate UI elements - using homepage behavior for all pages
+// Function to deactivate UI elements - with different behavior for sub-pages
 const deactivateUI = () => {
   // Remove preview-active class from full page content
   const fullPageContent = document.querySelector('.full_page-content');
@@ -142,20 +184,32 @@ const deactivateUI = () => {
     fullPageContent.classList.remove('preview-active');
   }
   
-  // Use homepage behavior for all pages - remove all peek/active classes
+  // Check if we're on a sub-page (has unstuck_fullpage class)
+  const isSubPage = document.body.classList.contains('unstuck_fullpage');
+  
+  // Remove peek/active classes from sidebar elements
   document.querySelectorAll('[data-js]').forEach(el => {
     el.classList.remove("peek");
-    el.classList.remove("active");
+    if (!isSubPage) {
+      el.classList.remove("active"); // Only remove active on homepage
+    }
   });
-  sidebar.classList.remove("peek");
-  sidebar.classList.remove("active");
   
-  // Add a delay before removing the classes from curtainL and curtainR
+  sidebar.classList.remove("peek");
+  if (!isSubPage) {
+    sidebar.classList.remove("active"); // Only remove active on homepage
+  }
+  
+  // Add a delay before adjusting curtains
   removeCurtainTimeout = setTimeout(() => {
     curtainR.classList.remove("peek");
-    curtainR.classList.remove("active");
     curtainL.classList.remove("peek");
-    curtainL.classList.remove("active");
+    
+    // Only remove active class from curtains on homepage
+    if (!isSubPage) {
+      curtainR.classList.remove("active");
+      curtainL.classList.remove("active");
+    }
     
     // Fade out the preview section with a delay
     if (currentActivePreview) {
@@ -200,8 +254,8 @@ const deactivateUI = () => {
             } else {
               // Otherwise maintain peek state
               section.classList.add("peek");
-              section.style.opacity = '0.3';
-              section.style.zIndex = '2';
+              section.style.opacity = '1';
+              section.style.zIndex = '20';
             }
           }
         });
@@ -245,6 +299,15 @@ const deactivateUI = () => {
         button.addEventListener("click", (e) => {
           // Prevent default if it's a link
           e.preventDefault();
+          
+          // Check if this is a navigation link (has href attribute)
+          if (button.href && 'startViewTransition' in document) {
+            // Use view transition for navigation
+            document.startViewTransition(() => {
+              window.location.href = button.href;
+            });
+            return;
+          }
           
           // Check if this button is already active
           const isActive = targetElement.classList.contains("active");
@@ -382,11 +445,144 @@ button.addEventListener("mouseleave", () => {
       }
     });
     
+    // Add interaction support for sidebar cards
+    const sidebarCards = document.querySelectorAll('[data-js]');
+    
+    sidebarCards.forEach((card) => {
+      const cardKey = card.getAttribute("data-js");
+      const correspondingButton = document.querySelector(`[data-js-btn="${cardKey}"]`);
+      const previewSection = document.querySelector(`.unstuck_${cardKey}-preview`);
+      
+      if (correspondingButton && previewSection) {
+        // HOVER EVENTS for sidebar cards (desktop only)
+        if (isDesktop) {
+          card.addEventListener("mouseenter", () => {
+            // If we're not in click mode, show hover preview
+            if (!document.querySelector('.click-activated')) {
+              clearTimeout(removeCurtainTimeout);
+              
+              // Add hover effect to corresponding nav button
+              correspondingButton.classList.add('hover-preview');
+              
+              hideAllPreviews();
+              peekUI(card);
+              peekPreview(previewSection);
+            }
+          });
+          
+          card.addEventListener("mouseleave", () => {
+            // Remove hover-preview class from corresponding button
+            correspondingButton.classList.remove('hover-preview');
+            
+            // If we're not in click mode, deactivate on mouse leave
+            if (!document.querySelector('.click-activated')) {
+              setTimeout(() => {
+                // If the mouse is not over the preview or nav button, deactivate
+                if (currentActivePreview && 
+                    !currentActivePreview.matches(':hover') &&
+                    !sidebar.matches(':hover') &&
+                    !correspondingButton.matches(':hover')) {
+                  deactivateUI();
+                }
+              }, 50);
+            }
+          });
+        }
+        
+        // CLICK EVENT for sidebar cards
+        card.addEventListener("click", (e) => {
+          e.preventDefault();
+          
+          // Check if the corresponding button is a navigation link
+          if (correspondingButton.href && 'startViewTransition' in document) {
+            // Use view transition for navigation
+            document.startViewTransition(() => {
+              window.location.href = correspondingButton.href;
+            });
+            return;
+          }
+          
+          // Check if this card is already active
+          const isActive = card.classList.contains("active");
+          
+          clearTimeout(removeCurtainTimeout);
+          
+          // Remove all active states
+          document.querySelectorAll('.click-activated').forEach(el => {
+            el.classList.remove('click-activated');
+          });
+          
+          if (!isActive) {
+            // If not active, activate everything
+            hideAllPreviews();
+            activateUI(card);
+            showPreview(previewSection);
+            
+            // Mark as click-activated
+            document.body.classList.add('click-activated');
+            correspondingButton.classList.add('click-activated');
+          } else {
+            // If already active, deactivate everything
+            deactivateUI();
+            hideAllPreviews();
+            document.body.classList.remove('click-activated');
+          }
+        });
+        
+        // KEYBOARD SUPPORT for sidebar cards
+        card.addEventListener("focus", () => {
+          correspondingButton.classList.add('focus-visible');
+          
+          if (!document.querySelector('.click-activated')) {
+            clearTimeout(removeCurtainTimeout);
+            hideAllPreviews();
+            peekUI(card);
+            peekPreview(previewSection);
+          }
+        });
+        
+        card.addEventListener("blur", () => {
+          correspondingButton.classList.remove('focus-visible');
+          
+          if (!document.querySelector('.click-activated')) {
+            deactivateUI();
+          }
+        });
+        
+        // Make cards focusable
+        if (!card.hasAttribute('tabindex')) {
+          card.setAttribute('tabindex', '0');
+        }
+        
+        // Add role for accessibility
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', `View ${cardKey.replace('us_', '').replace('_', ' ')} section`);
+      }
+    });
+
+    // Add view-transition support for preview buttons
+    const previewButtons = document.querySelectorAll('.dt_a11y-btn, .button');
+    
+    previewButtons.forEach((button) => {
+      if (button.href && !button.hasAttribute('data-view-transition-added')) {
+        button.setAttribute('data-view-transition-added', 'true');
+        
+        button.addEventListener('click', (e) => {
+          if ('startViewTransition' in document) {
+            e.preventDefault();
+            document.startViewTransition(() => {
+              window.location.href = button.href;
+            });
+          }
+        });
+      }
+    });
+
     // Add a document click handler to close when clicking outside
     document.addEventListener('click', (e) => {
       // If we're in click mode and click is outside navigation
       if (document.querySelector('.click-activated')) {
-        // Check if the click was outside the navigation and preview areas
+        // Check if the click was outside the navigation, preview, and sidebar areas
         const isOutsideNav = !e.target.closest('.unstuck_nav');
         const isOutsidePreview = !e.target.closest('.unstuck_container_preview');
         const isOutsideSidebar = !e.target.closest('.unstuck_area');
@@ -415,9 +611,9 @@ function detectPath(){
   const navItems = [
     { path: '/a11y', key: 'us_a11y' },
     { path: '/ethical-digital-strategy', key: 'us_strat' },
-    { path: '/digital-sovereignty', key: 'us_fedi' },
-    { path: '/fediverse', key: 'us_indie' },
-    { path: '/byod', key: 'us_course' }
+    { path: '/clean-web-development', key: 'us_clean' },
+    { path: '/green-web-hosting', key: 'us_green' },
+    { path: '/fediverse-open-source', key: 'us_fedi' }
   ];
   
   // Find the matching navigation item
@@ -443,18 +639,8 @@ function detectPath(){
     if (curtainL) curtainL.classList.add("active");
     document.querySelector('body').classList.add(targetKey, 'unstuck_fullpage');
     
-    // Show the preview section
-    if (previewSection) {
-      previewSection.classList.add("active");
-      previewSection.style.opacity = '1';
-      previewSection.style.zIndex = '20'; // Use consistent z-index (same as showPreview function)
-      
-      // Fade out the full page content
-      const fullPageContent = document.querySelector('.full_page-content');
-      if (fullPageContent) {
-        fullPageContent.classList.add('preview-active');
-      }
-    }
+    // Don't show the current page's own preview section on sub-pages
+    // The user is already viewing that content, so showing the preview would be redundant
     
     // Add ARIA attributes for accessibility
     if (targetButton) targetButton.setAttribute('aria-expanded', 'true');

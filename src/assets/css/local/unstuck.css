@@ -112,11 +112,11 @@
 
     &.peek{
         box-shadow: 1px 0 1px var(--color-gray-600);
-        transform: translateX(-25%);
+        transform: translateX(-50%);
         
 
         h1{
-            transform: translateX(5%);
+            transform: translateX(25%);
         }
     }
 
@@ -161,7 +161,7 @@
 
     &.peek{
         box-shadow: -1px 0 1px var(--color-gray-600);
-        transform: translateX(25%);
+        transform: translateX(50%);
     }
 
     &.active{
@@ -247,11 +247,11 @@
         }
     }
 
-    .unstuck_fedi{
+    .unstuck_clean{
         grid-column: 1 / -1;
         grid-row: 4 / span 2;
         position: relative;
-        right: -90%;
+        right: -85%;
 
         &.active,
         &:hover,
@@ -261,7 +261,7 @@
         }
     }
 
-    .unstuck_indie{
+    .unstuck_green{
         grid-column: 1 / -1;
         grid-row: 5 / span 2;
         position: relative;
@@ -271,22 +271,21 @@
         &:hover,
         &.peek{
             right: 0;
-            grid-row: 4 / span 4;
+            grid-row: 5 / span 3;
         }
     }
 
-    .unstuck_course{
+    .unstuck_fedi{
         grid-column: 1 / -1;
-        grid-row: 7 / span 2;
+        grid-row: 6 / span 2;
         position: relative;
-        right: -50%;
+        right: -90%;
 
         &.active,
         &:hover,
         &.peek{
             right: 0;
             grid-row: 6 / span 3;
-
         }
     }
 }
@@ -388,7 +387,7 @@
 
 /* Styles for click-activated state */
 .unstuck_nav li a.click-activated {
-    font-weight: bold;
+    text-shadow: 0.5px 0 0 currentColor;
     background: var(--color-tertiary-alt);
     border: 2px solid var(--color-secondary-alt);
     box-shadow: 4px 4px 1px rgba(0, 0, 0, 0.2);
@@ -406,13 +405,27 @@
     }
 }
 
-/* a11y Page */
+/* Individual Pages - Wider curtain positioning */
 .unstuck_fullpage{
     overflow-x: hidden;
     overflow-y: scroll;
 
+    /* Wider curtain positioning for individual pages */
+    .unstuck_left.active {
+        transform: translateX(-120%); /* Wider than homepage -100% */
+        
+        h1{
+            transform: translateX(145%); /* Adjust title positioning */
+            font-size: var(--size-step-3);
+        }
+    }
+
+    .unstuck_right.active {
+        transform: translateX(120%); /* Wider than homepage 100% */
+    }
+
     .unstuck_container_preview{
-        position: absolute;
+        position: fixed; /* Keep consistent with homepage */
         background: var(--color-secondary-alt);
         grid-column: 4 / 10;
         grid-row: 3 / 8;
@@ -478,5 +491,147 @@ body.click-activated .a11y_container {
 .unstuck_container_preview[style*="opacity: 1"] {
     opacity: 1 !important;
     z-index: 100 !important;
-    position: relative !important;
+    /* Keep position: fixed to prevent layout jumps */
+}
+
+/* CSS View Transitions */
+@view-transition {
+  navigation: auto;
+}
+
+/* Root transition - affects the entire page */
+::view-transition-old(root) {
+  animation: slide-out-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::view-transition-new(root) {
+  animation: slide-in-right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom animations for page transitions */
+@keyframes slide-out-left {
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Navigation-specific transitions */
+::view-transition-old(nav-transition) {
+  animation: nav-fade-out 0.3s ease-out;
+}
+
+::view-transition-new(nav-transition) {
+  animation: nav-fade-in 0.3s ease-in;
+}
+
+@keyframes nav-fade-out {
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+@keyframes nav-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+}
+
+/* Content area transitions */
+::view-transition-old(content-transition) {
+  animation: content-zoom-out 0.4s ease-out;
+}
+
+::view-transition-new(content-transition) {
+  animation: content-zoom-in 0.4s ease-in;
+}
+
+@keyframes content-zoom-out {
+  to {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+}
+
+@keyframes content-zoom-in {
+  from {
+    transform: scale(1.1);
+    opacity: 0;
+  }
+}
+
+/* Curtain-specific transitions */
+::view-transition-old(curtain-left) {
+  animation: curtain-left-out 0.5s cubic-bezier(1, 1.04, 0, 1.04);
+}
+
+::view-transition-new(curtain-left) {
+  animation: curtain-left-in 0.5s cubic-bezier(1, 1.04, 0, 1.04);
+}
+
+::view-transition-old(curtain-right) {
+  animation: curtain-right-out 0.5s cubic-bezier(1, 1.04, 0, 1.04);
+}
+
+::view-transition-new(curtain-right) {
+  animation: curtain-right-in 0.5s cubic-bezier(1, 1.04, 0, 1.04);
+}
+
+@keyframes curtain-left-out {
+  to {
+    transform: translateX(-150%);
+  }
+}
+
+@keyframes curtain-left-in {
+  from {
+    transform: translateX(-150%);
+  }
+}
+
+@keyframes curtain-right-out {
+  to {
+    transform: translateX(150%);
+  }
+}
+
+@keyframes curtain-right-in {
+  from {
+    transform: translateX(150%);
+  }
+}
+
+/* Add view transition names to elements */
+.unstuck_nav {
+  view-transition-name: nav-transition;
+}
+
+.unstuck_left {
+  view-transition-name: curtain-left;
+}
+
+.unstuck_right {
+  view-transition-name: curtain-right;
+}
+
+.full_page-content,
+.unstuck_container_preview {
+  view-transition-name: content-transition;
+}
+
+/* Reduced motion support for view transitions */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
 }

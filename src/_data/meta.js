@@ -1,8 +1,8 @@
 export const url = process.env.URL || 'http://localhost:8080';
 // Extract domain from `url`
 export const domain = new URL(url).hostname;
-export const siteName = 'Unstuck';
-export const siteDescription = 'Unstuck';
+export const siteName = 'Split Petal';
+export const siteDescription = 'Split Petal Digital';
 export const siteType = 'Business'; // schema
 export const locale = 'en_CA';
 export const lang = 'en';
@@ -25,11 +25,11 @@ export const themeLight = '#f8f8f8'; // used for meta tag theme-color, if light 
 export const themeDark = '#2e2e2e'; // used for meta tag theme-color, if dark colors are prefered. best use value set for dark bg
 export const opengraph_default = '/assets/images/template/opengraph-default.jpg'; // fallback/default meta image
 export const opengraph_default_alt =
-  "Unstuck"; // alt text for default meta image"
+  "Split Petal Digital"; // alt text for default meta image"
 export const blog = {
   // RSS feed
-  name: 'Unstuck',
-  description: 'Unstuck',
+  name: 'Split Petal Digital',
+  description: 'Split Petal Digital',
   // feed links are looped over in the head. You may add more to the array.
   feedLinks: [
     {
